@@ -1,0 +1,121 @@
+<div class="edit-page">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item active" aria-current="page">Edit User</li>
+    </ol>
+  </nav>
+  <div class="page-content">
+    <div class="row">
+      <div class="col col-md-4">
+        <img class="img-avatar" [src]="item.avatar">
+        <button mat-stroked-button class="change-img-button" color="primary" (click)="openDialog()">Change Avatar</button>
+      </div>
+      <div class="col col-md-8">
+
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">Edit Form</div>
+        <form class="edit-form" [formGroup]="exampleForm" novalidate (ngSubmit)="onSubmit(exampleForm.value)">
+
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input matInput placeholder="Name" class="form-control" formControlName="name">
+            </mat-form-field>
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <mat-error *ngIf="exampleForm.get('name').hasError(validation.type) && (exampleForm.get('name').dirty || exampleForm.get('name').touched)">{{validation.message}}</mat-error>
+            </ng-container>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <textarea  rows="8" matInput placeholder="Surname" class="form-control" formControlName="surname"></textarea>
+            </mat-form-field>
+            <ng-container *ngFor="let validation of validation_messages.surname">
+              <mat-error *ngIf="exampleForm.get('surname').hasError(validation.type) && (exampleForm.get('surname').dirty || exampleForm.get('surname').touched)">{{validation.message}}</mat-error>
+            </ng-container>
+          </div>
+
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input matInput type="number" min="0" max="100" placeholder="Age" class="form-control" formControlName="age">
+            </mat-form-field>
+            <ng-container *ngFor="let validation of validation_messages.age">
+              <mat-error *ngIf="exampleForm.get('age').hasError(validation.type) && (exampleForm.get('age').dirty || exampleForm.get('age').touched)">{{validation.message}}</mat-error>
+            </ng-container>
+          </div>
+
+          <div class="row submit-button-container">
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" color="primary" type="submit" [disabled]="!exampleForm.valid">Save</button>
+            </div>
+            <div class="col-md-4">
+              <button mat-raised-button class="delete-button" color="warn" type="button" (click)="delete()">Delete</button>
+            </div>
+          </div>
+        </form>
+</div>
+
+
+<div *ngIf="count > 0">
+        <div class="panel panel-primary">
+          <div class="panel-heading">Comments :</div>
+          <cdk-virtual-scroll-viewport itemSize="2" style="width: 100%"  class="example-viewport">         
+          
+          
+        <div class="list-group users-list">
+          <div *ngFor="let item of items"   class="example-item" class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="row">
+              <div class="col col-md-8 text-col">
+                  <h5 class="mb-1">Name :-  {{item.payload.doc.data().reviewername}}</h5>               
+                <h5 class="mb-1">{{item.payload.doc.data().comment}}</h5>  
+                
+          </div>
+        </div>         
+      </div>
+    </div>
+  </cdk-virtual-scroll-viewport>  
+      </div>
+    </div>
+      
+    
+    <div class="panel panel-primary">
+      <div class="panel-heading">Leave Comments :</div>
+
+        <form class="edit-form"  [formGroup]="commentForm" novalidate (ngSubmit)="onSubmitComments(commentForm.value)">
+          
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <input matInput placeholder="Name" class="form-control" formControlName="reviewername">
+            </mat-form-field>
+           </div>
+
+          <div class="form-group">
+            <mat-form-field class="input-style">
+              <textarea  rows="8" matInput placeholder="comment" class="form-control" formControlName="comment"></textarea>
+            </mat-form-field>
+          
+          </div>
+
+          <div class="row submit-button-container">
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" color="primary" type="submit">Save</button>
+            </div>
+           </div>
+        </form>
+</div>
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">File Upload :</div>        
+<form-upload [abhiJeet]="initialCount"> </form-upload>
+</div>
+<br/>
+<br/>
+
+<list-upload [abhiJeet]="initialCount"></list-upload>
+
+
+      </div>
+    </div>
+  </div>
+</div>
